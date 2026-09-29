@@ -201,5 +201,5 @@ real rates, otherwise cost figures use placeholders.
 | `eval_cases.py` / `eval_suite.py` | 30-case eval, report by query type, CI gate |
 | `dashboard.py` | Monitoring dashboard (Streamlit) |
 | `Dockerfile` / `docker-compose.yml` | Containerized API + dashboard |
-| `.github/workflows/eval.yml` | CI: eval on push/PR + Docker build check |
-| `data/` | Fixtures for evals (`notes.txt`, `injected.txt`) and the `read_file` sandbox |
+| `eval.yml` | CI: eval on push/PR + Docker build check |
+| Fixtures for evals (`notes.txt`, `injected.txt`) and the `read_file` sandbox |
