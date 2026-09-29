@@ -1,4 +1,4 @@
-# Agentic AI Capstone
+# AI-ASSISTANT 
 
 A single agent combining tool use, persistent memory, prompt-injection guardrails,
 and self-evaluation, served via both a Streamlit chat UI and a FastAPI endpoint.
@@ -15,7 +15,7 @@ Built on Groq (`openai/gpt-oss-120b`).
                                     │
                  ┌──────────────────┴──────────────────┐
                  │                                      │
-        ┌────────▼────────┐                   ┌─────────▼─────────┐
+        ┌────────▼────────┐                    ┌─────────▼─────────┐
         │  Streamlit UI    │                   │   FastAPI /chat    │
         │ (day5_s2_        │                   │  (day5_s2_         │
         │  streamlit_app)  │                   │   fastapi_server)  │
@@ -30,7 +30,7 @@ Built on Groq (`openai/gpt-oss-120b`).
                                        │
         ┌──────────────┬──────────────┼──────────────┬───────────────┐
         │              │              │               │               │
-  ┌─────▼─────┐  ┌─────▼──────┐ ┌────▼─────┐  ┌──────▼──────┐ ┌──────▼──────┐
+  ┌─────▼─────┐   ┌─────▼──────┐  ┌────▼─────┐   ┌──────▼──────┐   ┌──────▼──────┐
   │  Memory    │  │ Guardrails  │ │  Tools   │  │  Approval    │ │   Groq LLM   │
   │ (per-user  │  │ (input/     │ │ calc,    │  │  gate        │ │ openai/gpt-  │
   │  JSON on   │  │  output     │ │ time,    │  │ (send_email  │ │ oss-120b     │
