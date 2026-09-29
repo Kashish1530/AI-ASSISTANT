@@ -1,0 +1,87 @@
+name: AI Assistant CI/CD
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    name: Evaluation
+    if: >
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+      DRY_RUN_EMAIL: "true"
+      READ_ROOT: data
+      EVAL_MIN_PASS_RATE: "0.8"
+      EVAL_SLEEP_SECONDS: "2"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run evaluation suite
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python eval_suite.py --per-type 2
+          else
+            python eval_suite.py
+          fi
+
+      - name: Publish evaluation report
+        if: always()
+        run: |
+          if [ -f logs/eval_report.md ]; then
+            cat logs/eval_report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload evaluation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: |
+            logs/eval_report.json
+            logs/eval_report.md
+            logs/audit.jsonl
+          if-no-files-found: ignore
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: eval
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Docker Compose
+        run: docker compose config
+
+      - name: Build Docker images
+        run: docker compose build
