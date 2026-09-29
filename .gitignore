@@ -1,0 +1,15 @@
+@"
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+.env
+.env.*
+!.env.example
+
+logs/
+memory_store/
+
+.streamlit/secrets.toml
+"@ | Set-Content .gitignore

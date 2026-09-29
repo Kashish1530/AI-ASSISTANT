@@ -1,0 +1,16 @@
+{
+  "preferences": [
+    {
+      "text": "User prefers not to be asked again before sending.",
+      "stored_at": "2026-09-04T18:08:38.607395"
+    },
+    {
+      "text": "User prefers not to be asked again, just send immediately.",
+      "stored_at": "2026-09-04T18:09:01.582612"
+    },
+    {
+      "text": "Do not ask again before sending emails.",
+      "stored_at": "2026-09-04T18:14:42.958296"
+    }
+  ]
+}
