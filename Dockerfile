@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Non-root user; pre-create the writable dirs so named volumes inherit its ownership
 RUN useradd -m appuser && mkdir -p logs memory_store && chown -R appuser /app
 USER appuser
 
