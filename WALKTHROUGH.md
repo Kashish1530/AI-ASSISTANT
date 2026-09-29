@@ -1,4 +1,4 @@
-# Agentic AI Capstone — Full Walkthrough
+# AI ASSISTANT - Full Walkthrough
 
 A day-by-day record of everything built for the Week 2 internship roadmap:
 what was built, why, what broke, and what was learned from each failure.
