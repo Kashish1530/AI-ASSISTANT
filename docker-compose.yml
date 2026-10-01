@@ -3,11 +3,11 @@ services:
     build: .
     ports:
       - "8004:8004"
-    env_file: .env                
+    env_file: .env
     environment:
       LOG_DIR: /app/logs
-      READ_ROOT: /app/data        
-      DRY_RUN_EMAIL: ${DRY_RUN_EMAIL:-true}  
+      READ_ROOT: /app/data
+      DRY_RUN_EMAIL: ${DRY_RUN_EMAIL:-true}
     volumes:
       - logs:/app/logs
       - memory:/app/memory_store
@@ -16,14 +16,22 @@ services:
 
   dashboard:
     build: .
-    command: ["streamlit", "run", "dashboard.py", "--server.port=8501",
-              "--server.address=0.0.0.0", "--server.headless=true", "--browser.gatherUsageStats=false"]
+    command:
+      [
+        "streamlit",
+        "run",
+        "dashboard.py",
+        "--server.port=8501",
+        "--server.address=0.0.0.0",
+        "--server.headless=true",
+        "--browser.gatherUsageStats=false"
+      ]
     ports:
       - "8501:8501"
     environment:
       LOG_DIR: /app/logs
     volumes:
-      - logs:/app/logs:ro        
+      - logs:/app/logs:ro
     depends_on:
       api:
         condition: service_healthy
