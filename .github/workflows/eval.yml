@@ -27,7 +27,7 @@ jobs:
       DRY_RUN_EMAIL: "true"
       READ_ROOT: data
       EVAL_MIN_PASS_RATE: "0.75"
-      EVAL_SLEEP_SECONDS: "5"  # Increased from 2 to 5 to mitigate RateLimitError 429 tokens-per-minute bottlenecks
+      EVAL_SLEEP_SECONDS: "7"  # Increased from 2 to 5 to mitigate RateLimitError 429 tokens-per-minute bottlenecks
 
     steps:
       - name: Checkout repository
