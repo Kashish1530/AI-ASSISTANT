@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  eval:
+  eval: 
     name: Evaluation
     if: >
       github.event_name != 'pull_request' ||
