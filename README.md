@@ -53,6 +53,12 @@ Built on Groq (`openai/gpt-oss-120b`).
 
 ---
 
+## Diagram
+
+<img width="6438" height="4970" alt="diagram (2)" src="https://github.com/user-attachments/assets/e7f137ec-453e-4b30-8e4f-22c5615812b6" />
+
+---
+
 ## Setup
 
 ```powershell
@@ -67,7 +73,6 @@ pip install groq python-dotenv langgraph langchain-groq fastapi uvicorn streamli
 #    GROQ_API_KEY=your_groq_key_here
 #    LANGCHAIN_API_KEY=your_langsmith_key_here      (optional, for tracing)
 #    LANGCHAIN_TRACING_V2=true                       (optional)
-#    LANGCHAIN_PROJECT=agentic-ai-week2               (optional)
 
 # 4. Run the capstone self-test
 python day5_s1_capstone.py
@@ -202,4 +207,4 @@ real rates, otherwise cost figures use placeholders.
 | `dashboard.py` | Monitoring dashboard (Streamlit) |
 | `Dockerfile` / `docker-compose.yml` | Containerized API + dashboard |
 | `eval.yml` | CI: eval on push/PR + Docker build check |
-| Fixtures for evals (`notes.txt`, `injected.txt`) and the `read_file` sandbox |
+| `notes.txt`, `injected.txt` | Fixtures for evals (`notes.txt`, `injected.txt`) and the `read_file` sandbox |
