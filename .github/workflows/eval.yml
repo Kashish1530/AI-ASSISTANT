@@ -27,7 +27,7 @@ jobs:
       DRY_RUN_EMAIL: "true"
       READ_ROOT: data
       EVAL_MIN_PASS_RATE: "0.8"
-      EVAL_SLEEP_SECONDS: "2"
+      EVAL_SLEEP_SECONDS: "5"
 
     steps:
       - name: Checkout repository
