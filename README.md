@@ -99,8 +99,8 @@ robustness, memory, guardrails)
 
 ### Full 30-case eval suite 
 Run `python eval_suite.py` and record here:
-- Overall pass rate: `25/30 (83%)`
-- By category: correctness `6/6`, tool_selection `6/7`, refusal `3/5`, robustness `5/5`
+- Overall pass rate: `27/30 (90%)`
+- By category: correctness `6/6`, tool_selection `6/7`, refusal `4/5`, robustness `5/5`, guardrails '3/4', memory '2/3'
 
 ### Model routing comparison (Day 4 S4)
 Run `python day4_s4_model_routing.py` and record here:
