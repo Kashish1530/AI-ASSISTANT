@@ -11,7 +11,7 @@ COPY . .
 RUN useradd -m appuser && mkdir -p logs memory_store && chown -R appuser /app
 USER appuser
 
-EXPOSE 8000 8501
+EXPOSE 8004 8501
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8004/health')" || exit 1
 
