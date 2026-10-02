@@ -7,8 +7,6 @@ client = Groq(api_key=os.environ["GROQ_API_KEY"])
 MODEL = "openai/gpt-oss-120b"
 
 # ---------- Build a long, realistic conversation to test on ----------
-# Simulates a multi-turn agentic session with growing history - the kind
-# that naturally happens after several Day 1-3 tool-calling exchanges.
 
 LONG_CONVERSATION = [
     {"role": "system", "content": "You are a helpful research assistant."},
@@ -66,8 +64,8 @@ def summarize_old_turns(messages_to_summarize):
 
 def ask_with_summarized_history():
     system_msg = LONG_CONVERSATION[0]
-    older_turns = LONG_CONVERSATION[1:-2]   # everything except the most recent exchange
-    recent_turns = LONG_CONVERSATION[-2:]   # keep the last user+assistant turn 
+    older_turns = LONG_CONVERSATION[1:-2]   
+    recent_turns = LONG_CONVERSATION[-2:]  
 
     summary = summarize_old_turns(older_turns)
     print(f"SUMMARY OF OLDER TURNS:\n{summary}\n")
