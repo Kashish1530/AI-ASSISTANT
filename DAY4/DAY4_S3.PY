@@ -184,7 +184,7 @@ if __name__ == "__main__":
         if r["passed"] is False:
             print(f"  #{r['id']} ({r['category']}): {r['input'][:60]} -> {r['reason']}")
 
-    # Save full results to a JSON file for your report/log
+    # Save full results to a JSON file for report/log
     with open("day4_s3_eval_results.json", "w") as f:
         json.dump(results, f, indent=2, default=str)
     print(f"\nFull results saved to day4_s3_eval_results.json")
