@@ -80,16 +80,13 @@ while True:
     print("\nMODEL RESPONSE:")
     print(msg)
 
-    # No tools requested → we're finished
     if not msg.tool_calls:
         print("\nFINAL ANSWER:")
         print(msg.content)
         break
 
-    # Add assistant's tool-call message
     messages.append(msg)
 
-    # Execute every requested tool
     for call in msg.tool_calls:
 
         name = call.function.name
