@@ -1,6 +1,11 @@
 groq
 python-dotenv
+langsmith
+mcp
 fastapi
 uvicorn
 streamlit
 pandas
+lora
+github actions
+docker
