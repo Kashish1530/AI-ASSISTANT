@@ -1,10 +1,3 @@
-"""Runs eval_cases.py against the real capstone agent.
-
-  python eval_suite.py               # all 30 cases
-  python eval_suite.py --per-type 2  # quick run: first 2 cases of each type
-
-Writes logs/eval_report.json and logs/eval_report.md. Exits with code 1 if the
-overall pass rate is below EVAL_MIN_PASS_RATE (default 0.8), which is what CI gates on."""
 import argparse
 import json
 import os
