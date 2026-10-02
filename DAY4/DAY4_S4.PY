@@ -80,7 +80,7 @@ def run_with_routing(question, verbose=True):
     if verbose:
         print(f"  [{SMALL_MODEL}] failed ({reason}) -> escalating to {LARGE_MODEL}")
     large_answer, large_cost = call_model(LARGE_MODEL, question)
-    total_cost = small_cost + large_cost  # you pay for BOTH calls when escalating
+    total_cost = small_cost + large_cost
     if verbose:
         print(f"  [{LARGE_MODEL}] handled it. Cost: ${large_cost:.8f} (total incl. small model attempt: ${total_cost:.8f})")
 
