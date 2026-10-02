@@ -16,7 +16,7 @@ load_dotenv()
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 MODEL = "openai/gpt-oss-120b"
 
-# ---------- 1. web_search (mocked) ----------
+# ---------- 1. web_search ----------
 def web_search(query):
     return f"[MOCK DATA —  real search results] Placeholder results for '{query}': [result 1, result 2, result 3]"
 
