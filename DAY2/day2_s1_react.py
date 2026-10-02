@@ -7,7 +7,7 @@ load_dotenv()
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 MODEL = "openai/gpt-oss-120b"
 
-# ---------- The "tools" the agent can use ----------
+# ---------- The "tools" the agent----------
 def calculator(expression):
     try:
         return str(eval(expression))
@@ -23,8 +23,7 @@ AVAILABLE_TOOLS = {
 }
 
 # ---------- The ReAct system prompt ----------
-# We are NOT using tools=[...] here. Instead we teach the model, via plain
-# text instructions, to output a strict format we can parse ourselves.
+
 SYSTEM_PROMPT = """You are a ReAct agent.
 
 You MUST follow this exact format.
@@ -83,17 +82,14 @@ def run_react_loop(question, max_steps=8):
         print(f"\n--- STEP {step} (raw model output) ---")
         print(text)
 
-        # Append exactly what the model said, so it sees its own prior steps
         messages.append({"role": "assistant", "content": text})
 
-        # Check for a final answer first
         final_match = FINAL_PATTERN.search(text)
         if final_match:
             answer = final_match.group(1).strip()
             print(f"\n=== FINAL ANSWER ===\n{answer}")
             return answer
 
-        # Otherwise, look for an Action to execute
         action_match = ACTION_PATTERN.search(text)
         if not action_match:
             print("No Action or Final Answer found - stopping (model didn't follow format).")
@@ -109,7 +105,6 @@ def run_react_loop(question, max_steps=8):
 
         print(f"OBSERVATION: {observation}")
 
-        # Feed the observation back as a user turn, so the model continues the loop
         messages.append({"role": "user", "content": f"Observation: {observation}"})
 
     print("Max steps reached without a final answer.")
