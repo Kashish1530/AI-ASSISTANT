@@ -13,7 +13,7 @@ load_dotenv()
 
 MODEL = "openai/gpt-oss-120b"
 
-# ---------- Tools (LangChain-native this time, using @tool decorator) ----------
+# ---------- Tools (LangChain, using @tool decorator) ----------
 
 @tool
 def calculator(expression: str) -> str:
@@ -34,11 +34,8 @@ tool_node = ToolNode(tools)
 llm = ChatGroq(model=MODEL, api_key=os.environ["GROQ_API_KEY"])
 llm_with_tools = llm.bind_tools(tools)
 
-# ---------- State ----------
 class AgentState(TypedDict):
     messages: Annotated[list, operator.add]
-
-# ---------- Nodes ----------
 
 def call_model(state: AgentState):
     """The 'Thought' node - the model decides what to do next."""
@@ -62,7 +59,7 @@ graph.add_node("tools", tool_node)
 
 graph.set_entry_point("agent")
 graph.add_conditional_edges("agent", should_continue, {"tools": "tools", END: END})
-graph.add_edge("tools", "agent")  # after tool runs, go back to the model (the cycle)
+graph.add_edge("tools", "agent")  
 
 app = graph.compile()
 
@@ -74,9 +71,6 @@ def save_graph_diagram():
             f.write(png_bytes)
         print("Graph diagram saved to day2_s2_graph.png")
     except Exception as e:
-        # Mermaid rendering needs internet access to a rendering service;
-        # if it fails, print the mermaid source instead so you can render it
-        # manually at https://mermaid.live
         print(f"Could not render PNG ({e}). Mermaid source below - paste into https://mermaid.live :\n")
         print(app.get_graph().draw_mermaid())
 
