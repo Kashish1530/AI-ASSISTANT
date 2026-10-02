@@ -28,8 +28,6 @@ def estimate_cost(usage):
 
 
 # ==================== APPROACH 1: FIXED PIPELINE ====================
-# Deterministic: always research, then always write. No decision-making
-# about *what* to do next - the order never changes.
 
 def run_fixed_pipeline(task: str):
     start = time.time()
@@ -72,9 +70,7 @@ def run_fixed_pipeline(task: str):
 
 
 # ==================== APPROACH 2: AGENT (SUPERVISOR-ROUTED) ====================
-# Same 2 real steps, but a 3rd LLM call decides routing at each step -
-# this is the actual overhead an agent adds when the path was never in doubt.
-
+                                                                                                                                                             
 def run_agent_version(task: str):
     start = time.time()
     total_cost = 0.0
@@ -83,8 +79,6 @@ def run_agent_version(task: str):
     state = {"research_notes": "", "final_output": ""}
 
     while True:
-        # Supervisor call - an LLM decides what to do next, even though
-        # the answer is always the same fixed order in this task.
         supervisor_prompt = (
             f"Research notes exist: {bool(state['research_notes'])}. "
             f"Final output exists: {bool(state['final_output'])}. "
@@ -124,7 +118,7 @@ def run_agent_version(task: str):
             total_cost += estimate_cost(wresp.usage)
             total_calls += 1
         else:
-            break  # safety exit if the model outputs something unexpected
+            break  
 
     elapsed = time.time() - start
     return {
