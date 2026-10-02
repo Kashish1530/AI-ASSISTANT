@@ -2,7 +2,6 @@ import streamlit as st
 import sys
 import os
 
-# Import the capstone agent from Day 5 S1 - keep this file in the same folder
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from day5_s1_capstone import run_capstone_agent, load_memory
 
@@ -10,11 +9,10 @@ st.set_page_config(page_title="Agentic AI Capstone", page_icon="🤖")
 st.title("🤖 Agentic AI Capstone Demo")
 st.caption("Week 2 capstone: tools + memory + guardrails, wired end to end (Groq / openai/gpt-oss-120b)")
 
-# --- Session handling: a stable user_id per browser session ---
 if "user_id" not in st.session_state:
     st.session_state.user_id = "streamlit_user_" + str(id(st.session_state))
 if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []  # list of {"role", "content", "tool_calls", "sources"}
+    st.session_state.chat_history = [] 
 
 with st.sidebar:
     st.subheader("Session Info")
