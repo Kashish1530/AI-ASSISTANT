@@ -54,8 +54,6 @@ tools = [
 ]
 
 # ---------- Timeout mechanism ----------
-# Uses SIGALRM (Unix-style). Windows doesn't support SIGALRM natively -
-# see the Windows-safe fallback note below the class.
 
 class ToolTimeoutError(Exception):
     pass
@@ -96,7 +94,7 @@ def run_tool_with_timeout(func, kwargs, timeout_seconds=5):
 # ---------- Human approval gate ----------
 
 def request_human_approval(tool_name, args):
-    print(f"\n⚠️  APPROVAL REQUIRED ⚠️")
+    print(f"\n APPROVAL REQUIRED ")
     print(f"The agent wants to call a DANGEROUS tool: {tool_name}")
     print(f"Arguments: {json.dumps(args, indent=2)}")
     answer = input("Approve this action? (yes/no): ").strip().lower()
@@ -157,7 +155,7 @@ def run_agent(user_input, max_iterations=5, tool_timeout_seconds=5):
             })
 
     # --- GUARDRAIL: max iteration cap hit ---
-    print(f"\n🛑 Max iterations ({max_iterations}) reached - stopping to avoid a runaway loop.")
+    print(f"\n Max iterations ({max_iterations}) reached - stopping to avoid a runaway loop.")
     return None
 
 
