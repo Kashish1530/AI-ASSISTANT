@@ -91,7 +91,7 @@ graph.add_conditional_edges(
     "supervisor", route_from_supervisor,
     {"researcher": "researcher", "writer": "writer", END: END}
 )
-graph.add_edge("researcher", "supervisor")  # worker reports back to supervisor
+graph.add_edge("researcher", "supervisor") 
 graph.add_edge("writer", "supervisor")
 
 app = graph.compile()
