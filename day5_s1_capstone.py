@@ -32,8 +32,6 @@ def web_search(query):
     return f"[MOCK DATA - not real search results] Placeholder findings for '{query}': point A, point B, point C."
 
 def read_file(path):
-    # If READ_ROOT is set (Docker/CI do this), reads are confined to that folder.
-    # If unset (local dev), any path works, as before.
     root = os.environ.get("READ_ROOT")
     try:
         if root:
@@ -179,7 +177,7 @@ def request_human_approval(tool_name, args, auto_approve=False, request_id=None,
     elif not sys.stdin or not sys.stdin.isatty():
         approved, how = False, "denied_non_interactive"
     else:
-        print(f"\n⚠️  APPROVAL REQUIRED: {tool_name}({json.dumps(args)})")
+        print(f"\n  APPROVAL REQUIRED: {tool_name}({json.dumps(args)})")
         approved = input("Approve? (yes/no): ").strip().lower() in ("yes", "y")
         how = "human_approved" if approved else "human_denied"
     audit("approval_decision", request_id=request_id, user_id=user_id, tool=tool_name,
@@ -211,8 +209,6 @@ def build_source_entry(tool_name, args, result):
     return {"type": "tool", "label": tool_name, "note": None}
 
 
-# Tool outputs that come from outside the system get wrapped in the tags the
-# guardrail prompt refers to, so injected instructions inside them are treated as data.
 UNTRUSTED_TOOLS = {"read_file", "web_search"}
 
 
@@ -309,8 +305,7 @@ def run_capstone_agent(user_id, user_message, max_iterations=6, auto_approve_dan
 
 
 # =========================================================
-# 5. SELF-TEST: subset of the Day 4 S3 eval suite, run against
-#    this exact capstone agent, with LLM-as-judge grading
+# 5. SELF-TEST                                                                                                               
 # =========================================================
 
 CAPSTONE_TEST_CASES = [
@@ -349,10 +344,6 @@ def run_self_test():
         output, tool_calls, sources = run_capstone_agent(
             "capstone_test_user", tc["input"], auto_approve_dangerous=False
         )
-
-        # Special case: memory persistence is a filesystem side effect an
-        # LLM judge cannot observe from conversation text alone. Check it
-        # directly instead of asking the judge to guess.
         if tc["category"] == "memory":
             mem = load_memory("capstone_test_user")
             file_exists = os.path.exists(memory_path("capstone_test_user"))
@@ -367,7 +358,7 @@ def run_self_test():
             passed, reason = judge_response(tc, output or "(no output)", tool_calls)
 
         results.append({**tc, "output": output, "tool_calls": tool_calls, "passed": passed, "reason": reason})
-        status = "✅ PASS" if passed else ("❌ FAIL" if passed is False else "⚠️ UNPARSEABLE")
+        status = " PASS" if passed else (" FAIL" if passed is False else " UNPARSEABLE")
         print(f"  {status} - {reason}")
 
     passed_count = sum(1 for r in results if r["passed"] is True)
