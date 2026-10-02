@@ -1,5 +1,3 @@
-"""Audit logging + request metrics. Stdlib only, so the dashboard can import it
-without needing the Groq key. Both logs are append-only JSON Lines files."""
 import json
 import os
 import threading
