@@ -1,4 +1,3 @@
-# observibility file
 import os
 from dotenv import load_dotenv
 from typing import TypedDict, Literal
@@ -41,13 +40,10 @@ def researcher_node(state: AgentState):
 
 
 def writer_node(state: AgentState):
-    # --- INTENTIONAL BUG for the debugging exercise ---
-    # This references a key that doesn't exist in state ("resarch_notes",
-    # misspelled) instead of "research_notes". This will raise a KeyError,
-    # producing a real failed run for you to trace and debug.
+    # --- INTENTIONAL BUG for the debugging  ---
     prompt = (
         f"Write a 3-sentence summary for task '{state['task']}' using "
-        f"these notes:\n{state['research_notes']}"  # <-- BUG: typo, will KeyError
+        f"these notes:\n{state['research_notes']}" 
     )
     resp = llm.invoke([HumanMessage(content=prompt)])
     return {"final_output": resp.content, "next_agent": "supervisor"}
