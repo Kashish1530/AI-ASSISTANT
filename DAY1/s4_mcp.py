@@ -19,14 +19,12 @@ async def main():
         async with ClientSession(read, write) as session:
             await session.initialize()
 
-            # 1. List available tools
             tools = await session.list_tools()
 
             print("AVAILABLE TOOLS:")
             for t in tools.tools:
                 print(f"  - {t.name}: {t.description}")
 
-            # 2. List directory
             print("\n--- CALL 1: list_directory ---")
 
             result1 = await session.call_tool(
@@ -36,7 +34,6 @@ async def main():
 
             print(result1)
 
-            # 3. Read text file
             print("\n--- CALL 2: read_text_file ---")
 
             result2 = await session.call_tool(
@@ -49,7 +46,6 @@ async def main():
             text = result2.content[0].text
             print(text)
 
-            # 4. Get file info
             print("\n--- CALL 3: get_file_info ---")
 
             result3 = await session.call_tool(
