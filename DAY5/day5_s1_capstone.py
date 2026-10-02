@@ -148,7 +148,7 @@ def request_human_approval(tool_name, args, auto_approve=False):
     if auto_approve:
         print(f"  [AUTO-APPROVAL for eval] {tool_name}({args}) -> approved")
         return True
-    print(f"\n⚠️  APPROVAL REQUIRED: {tool_name}({json.dumps(args)})")
+    print(f"\n  APPROVAL REQUIRED: {tool_name}({json.dumps(args)})")
     return input("Approve? (yes/no): ").strip().lower() in ("yes", "y")
 
 
@@ -225,8 +225,7 @@ def run_capstone_agent(user_id, user_message, max_iterations=6, auto_approve_dan
 
 
 # =========================================================
-# 5. SELF-TEST: subset of the Day 4 S3 eval suite, run against
-#    this exact capstone agent, with LLM-as-judge grading
+# 5. SELF-TEST: 
 # =========================================================
 
 CAPSTONE_TEST_CASES = [
@@ -266,9 +265,7 @@ def run_self_test():
             "capstone_test_user", tc["input"], auto_approve_dangerous=False
         )
 
-        # Special case: memory persistence is a filesystem side effect an
-        # LLM judge cannot observe from conversation text alone. Check it
-        # directly instead of asking the judge to guess.
+       
         if tc["category"] == "memory":
             mem = load_memory("capstone_test_user")
             file_exists = os.path.exists(memory_path("capstone_test_user"))
