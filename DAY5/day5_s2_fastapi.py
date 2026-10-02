@@ -10,17 +10,12 @@ load_dotenv()
 
 app = FastAPI(title="Agentic AI Capstone API", version="1.0")
 
-# --- Simple in-memory session store ---
-# Maps session_id -> user_id. For anything beyond a demo, replace with
-# Redis or a database - in-memory sessions vanish on server restart and
-# don't work across multiple server instances.
 SESSIONS = {}
-
 
 class ChatRequest(BaseModel):
     message: str
-    session_id: str | None = None  # if omitted, a new session is created
-    auto_approve_dangerous: bool = False  # keep False in real deployments
+    session_id: str | None = None  
+    auto_approve_dangerous: bool = False  
 
 
 class ChatResponse(BaseModel):
@@ -32,7 +27,6 @@ class ChatResponse(BaseModel):
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest):
-    # Create or reuse a session
     if req.session_id and req.session_id in SESSIONS:
         session_id = req.session_id
         user_id = SESSIONS[session_id]
