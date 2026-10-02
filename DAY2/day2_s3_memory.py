@@ -13,7 +13,6 @@ os.makedirs(MEMORY_DIR, exist_ok=True)
 
 
 def memory_path(user_id: str) -> str:
-    # Per-user memory key -> separate file per user, never mixed together
     return os.path.join(MEMORY_DIR, f"{user_id}.json")
 
 
@@ -76,10 +75,8 @@ def build_system_prompt(memory: dict) -> str:
 def chat_turn(user_id: str, user_message: str):
     memory = load_memory(user_id)
 
-    # Try to learn something durable from this message
     extract_and_store_memory(user_id, user_message, memory)
 
-    # Reload in case it was just updated
     memory = load_memory(user_id)
     system_prompt = build_system_prompt(memory)
 
