@@ -1,4 +1,3 @@
-# Build a 30-case agent test suite that runs automatically and prints a pass rate plus a failure breakdown
 import os
 import json
 from dotenv import load_dotenv
