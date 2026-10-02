@@ -1,4 +1,3 @@
-# Cut cost per query by at least 40 percent while keeping the pass rate within 2 points
 import os
 import time
 from dotenv import load_dotenv
@@ -7,12 +6,10 @@ from groq import Groq
 load_dotenv()
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
-# Two tiers - swap these for whatever's live on your Groq account
-# (run models.list() from earlier if either of these 404s)
 SMALL_MODEL = "openai/gpt-oss-20b"
 LARGE_MODEL = "openai/gpt-oss-120b"
 
-# Placeholder pricing - verify actual rates at console.groq.com/docs/pricing
+# actual rates at console.groq.com/docs/pricing
 PRICING = {
     SMALL_MODEL: {"input": 0.05, "output": 0.25},   # $ per million tokens
     LARGE_MODEL: {"input": 0.15, "output": 0.75},
@@ -35,7 +32,7 @@ def call_model(model, prompt):
     return answer, cost
 
 
-# ---------- Escalation trigger: how do we know the small model "failed"? ----------
+# ---------- Escalation trigger:  ----------
 
 def small_model_failed(answer, question):
     """
